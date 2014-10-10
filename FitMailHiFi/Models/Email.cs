@@ -13,5 +13,21 @@ namespace FitMailHiFi.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         public DateTime Date { get; set; }
+
+        public Email()
+        {
+            
+        }
+
+        public Email(string fromAddress, List<string> toAddresses, string subject, string body, DateTime date, List<string> copyToAddresses = null, List<string> blindCopyToAddresses = null)
+        {
+            FromAddress = fromAddress;
+            ToAddresses = toAddresses;
+            CopyToAddresses = copyToAddresses;
+            BlindCopyToAddresses = blindCopyToAddresses;
+            Subject = subject;
+            Body = body;
+            Date = date;
+        }
     }
 }

@@ -25,14 +25,14 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <ListBox Grid.Row="2" ItemsSource="{Binding Contacts, ElementName=Local}">
+        <ListBox Grid.Row="2" ItemsSource="{Binding Contacts, ElementName=Local}" Grid.IsSharedSizeScope="True">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="NameGroup" />
                             <ColumnDefinition Width="40" />
-                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="EmailGroup" />
                             <ColumnDefinition Width="20" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>

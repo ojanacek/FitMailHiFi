@@ -6,7 +6,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0" x:Name="SearchBox" Text="{Binding SearchedExpression, ElementName=Local, UpdateSourceTrigger=PropertyChanged}" 

@@ -66,6 +66,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NewEmail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddContactWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,11 +88,19 @@
     <Compile Include="Controls\EmailFolderListing.xaml.cs">
       <DependentUpon>EmailFolderListing.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewEmail.xaml.cs">
+      <DependentUpon>NewEmail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainController.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Email.cs" />
+    <Compile Include="ViewModels\AddContactViewModel.cs" />
     <Compile Include="ViewModels\ContactViewModel.cs" />
     <Compile Include="ViewModels\EmailViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\AddContactWindow.xaml.cs">
+      <DependentUpon>AddContactWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
