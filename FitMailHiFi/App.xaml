@@ -13,5 +13,16 @@
             <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
         
+        <Style x:Key="OpenContactsButton" TargetType="Button">
+            <Setter Property="Margin" Value="5, 0, 0, 0" />
+            <Setter Property="ToolTip" Value="Vybrat kontakty z adresáře" />
+            <Setter Property="Content" Value="Adresář" />
+        </Style>
+
+        <Style x:Key="EmailDetailBox" TargetType="TextBox">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="IsReadOnly" Value="True" />
+        </Style>
+
     </Application.Resources>
 </Application>

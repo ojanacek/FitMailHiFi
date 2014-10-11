@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="FitMailHiFi.Controls.NewEmail"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             MinHeight="200" MinWidth="200">
+             MinHeight="200" MinWidth="200" IsVisibleChanged="NewEmail_OnIsVisibleChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,19 +25,19 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Příjemce" />
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
             <TextBox Width="335" x:Name="To" TabIndex="1" />
-            <Button Content="Adresář" Margin="5, 0, 0, 0" Click="OpenContacts" />
+            <Button Style="{StaticResource OpenContactsButton}" Click="OpenContactsForReceiver" />
         </StackPanel>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Kopie" />
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
             <TextBox Width="335" x:Name="Copy" TabIndex="2" />
-            <Button Content="Adresář" Margin="5, 0, 0, 0" Click="OpenContacts" />
+            <Button Style="{StaticResource OpenContactsButton}" Click="OpenContactsForCopy" />
         </StackPanel>
 
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Skrytá kopie" />
         <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal">
             <TextBox Width="335" x:Name="BlindCopy" TabIndex="3" />
-            <Button Content="Adresář" Margin="5, 0, 0, 0" Click="OpenContacts" />
+            <Button Style="{StaticResource OpenContactsButton}" Click="OpenContactsForBlindCopy" />
         </StackPanel>
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Předmět" />

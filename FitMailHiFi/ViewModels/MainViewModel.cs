@@ -122,35 +122,15 @@ namespace FitMailHiFi.ViewModels
 
             controller.NewContactAdded += (s, a) => Contacts.Add(new ContactViewModel(a));
             controller.NewEmailSent += (s, a) => ShowReceived.Execute(null);
+            controller.EmailDeleted += (s, a) =>
+            {
+                var vm = ActiveFolderEmails.First(m => m.Email == a);
+                ActiveFolderEmails.Remove(vm);
+            };
+            controller.RespForwRequested += (s, a) => WriteNewEmail.Execute(null);
 
             PopulateWithTestData();
             ShowReceived.Execute(null);
-        }
-
-        private void PopulateWithTestData()
-        {
-            for (int i = 1; i < 10; i++)
-            {
-                var email = new Email
-                {
-                    FromAddress = "user" + i + "@mail.com",
-                    ToAddresses = new List<string> { "me@mail.com" },
-                    Subject = "Test message " + i,
-                    Body = "Hi there, \n this is a test message from user " + i,
-                    Date = DateTime.Parse("2014-0" + i + "-10")
-                };
-                controller.ReceivedEmails.Add(email);
-            }
-            
-            controller.AddContact("jan.novak@novak.cz", "Jan Novák");
-            controller.AddContact("pepa.novak@novak.cz", "Pepa Novák");
-            controller.AddContact("zbynek.dlouhy@gmail.com", "Zbyněk Dlouhý");
-            controller.AddContact("joskaxx@posta.cz", "Josef Malý");
-            controller.AddContact("ladan@posta.cz", "Ladislav Polívka");
-            controller.AddContact("cervond@yahoo.com", "Ondřej Červinka");
-            controller.AddContact("eva.sladka@gmail.com", "Eva Sladká");
-            controller.AddContact("kratter@seznam.cz", "Tereza Krátká");
-            controller.AddContact("janica@email.cz", "Jana Ostrá");
         }
 
         private void DeleteEmails()
@@ -162,10 +142,7 @@ namespace FitMailHiFi.ViewModels
             var mailsToDelete = ActiveFolderEmails.Where(e => e.IsChecked);
             foreach (var mail in mailsToDelete.ToArray())
             {
-                var mailModel = controller.ReceivedEmails.Single(e => e == mail.Email);
-                controller.ReceivedEmails.Remove(mailModel);
-                ActiveFolderEmails.Remove(mail);
-                controller.DeletedEmails.Add(mailModel);
+                controller.DeleteEmail(mail.Email);
             }
         }
 
@@ -203,6 +180,89 @@ namespace FitMailHiFi.ViewModels
             ActiveFolderEmails.Clear();
             ActiveFolderEmails.AddRange(emails.Select(e => new EmailViewModel(e)));
             IsDeleteAvailable = ActiveFolderEmails.Count > 0;
+        }
+
+        private void PopulateWithTestData()
+        {   
+            controller.AddContact("jan.novak@novak.cz", "Jan Novák");
+            controller.AddContact("pepa.novak@novak.cz", "Pepa Novák");
+            controller.AddContact("zbynek.dlouhy@gmail.com", "Zbyněk Dlouhý");
+            controller.AddContact("joskaxx@posta.cz", "Josef Malý");
+            controller.AddContact("ladan@posta.cz", "Ladislav Polívka");
+            controller.AddContact("cervond@yahoo.com", "Ondřej Červinka");
+            controller.AddContact("eva.sladka@gmail.com", "Eva Sladká");
+            controller.AddContact("kratter@seznam.cz", "Tereza Krátká");
+            controller.AddContact("janica@email.cz", "Jana Ostrá");
+
+            var email = new Email
+            {
+                FromAddress = "jan.novak@novak.cz",
+                ToAddresses = new List<string> { "me@mail.com" },
+                Subject = "lampa",
+                Body = "Ahoj, pujc mi lampu. Honza",
+                Date = DateTime.Now.AddDays(-1)
+            };
+            controller.ReceivedEmails.Add(email);
+
+            email = new Email
+            {
+                FromAddress = "pepa.novak@novak.cz",
+                ToAddresses = new List<string> { "me@mail.com" },
+                Subject = "stul",
+                Body = "Potrebuju opravit stul.",
+                Date = DateTime.Now.AddDays(-2)
+            };
+            controller.ReceivedEmails.Add(email);
+
+            email = new Email
+            {
+                FromAddress = "janica@email.cz",
+                ToAddresses = new List<string> { "me@mail.com" },
+                Subject = "pozdrav",
+                Body = "Ahoj, jak se mas? Janicka",
+                Date = DateTime.Now.AddDays(-4)
+            };
+            controller.ReceivedEmails.Add(email);
+
+            email = new Email
+            {
+                FromAddress = "kratter@seznam.cz",
+                ToAddresses = new List<string> { "me@mail.com" },
+                Subject = "prochazka",
+                Body = "Ahoj, vyrazime zitra ven? Terka",
+                Date = DateTime.Now.AddDays(-8)
+            };
+            controller.ReceivedEmails.Add(email);
+
+            email = new Email
+            {
+                FromAddress = "kratter@seznam.cz",
+                ToAddresses = new List<string> { "me@mail.com" },
+                Subject = "prochazka",
+                Body = "Ahoj, vyrazime zitra ven? Terka",
+                Date = DateTime.Now.AddDays(-16)
+            };
+            controller.ReceivedEmails.Add(email);
+
+            email = new Email
+            {
+                FromAddress = "jan.novak@novak.cz",
+                ToAddresses = new List<string> { "me@mail.com" },
+                Subject = "zidle",
+                Body = "Mam rozbitou zidli, nemuzu na ni sedet :(",
+                Date = DateTime.Now.AddDays(-32)
+            };
+            controller.ReceivedEmails.Add(email);
+
+            email = new Email
+            {
+                FromAddress = "me@mail.com",
+                ToAddresses = new List<string> { "kratter@seznam.cz" },
+                Subject = "re: prochazka",
+                Body = "Ahoj, jasne.",
+                Date = DateTime.Now.AddDays(-7)
+            };
+            controller.SentEmails.Add(email);
         }
     }
 }

@@ -22,6 +22,10 @@ namespace FitMailHiFi
 
         public event EventHandler<Contact> NewContactAdded;
         public event EventHandler NewEmailSent;
+        public event EventHandler<Email> EmailDeleted;
+
+        public event EventHandler RespForwRequested;
+        public Email RespForwEmail { get; set; }
 
         public void AddContact(string emailAddress, string fullName)
         {
@@ -35,6 +39,24 @@ namespace FitMailHiFi
             var email = new Email("me@mail.com", toAddresses, subject, body, DateTime.Now, copyToAddresses, blindCopyToAddresses);
             sentEmails.Add(email);
             NewEmailSent(this, EventArgs.Empty);
+        }
+
+        public void DeleteEmail(Email email)
+        {
+            if (receivedEmails.Contains(email))
+                receivedEmails.Remove(email);
+
+            if (sentEmails.Contains(email))
+                sentEmails.Remove(email);
+
+            deletedEmails.Add(email);
+
+            EmailDeleted(this, email);
+        }
+
+        public void RequestRespForw()
+        {
+            RespForwRequested(this, EventArgs.Empty);
         }
     }
 }

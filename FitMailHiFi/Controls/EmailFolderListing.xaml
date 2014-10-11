@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="FitMailHiFi.Controls.EmailFolderListing"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:EveryDayTools.WPF.Converters;assembly=EveryDayTools"
              MinHeight="200" MinWidth="200" x:Name="Local" Loaded="EmailFolderListing_OnLoaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -25,23 +26,24 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <ListBox Grid.Row="2" ItemsSource="{Binding Emails, ElementName=Local}">
+        <ListBox Grid.Row="2" ItemsSource="{Binding Emails, ElementName=Local}" Grid.IsSharedSizeScope="True" 
+                 SelectedItem="{Binding SelectedEmail, ElementName=Local}" SelectionMode="Single" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid MouseDown="MailDoubleClick">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="65" />
-                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="SubjectGroup" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition SharedSizeGroup="AddressGroup" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition SharedSizeGroup="DateGroup" />
                             <ColumnDefinition Width="30" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" Text="{Binding Email.Subject}" />
                         <TextBlock Grid.Column="2" Text="{Binding Email.FromAddress}" />
-                        <TextBlock Grid.Column="4" Text="{Binding Email.Date}" />
+                        <TextBlock Grid.Column="4" Text="{converters:CultureAwareBinding Path=Email.Date}" />
                         <CheckBox Grid.Column="6" IsChecked="{Binding IsChecked}" />
                     </Grid>
                 </DataTemplate>

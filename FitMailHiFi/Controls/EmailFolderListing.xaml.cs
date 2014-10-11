@@ -2,8 +2,10 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using EveryDayTools;
 using FitMailHiFi.ViewModels;
+using FitMailHiFi.Views;
 
 namespace FitMailHiFi.Controls
 {
@@ -17,6 +19,8 @@ namespace FitMailHiFi.Controls
             DependencyProperty.Register("Emails", typeof (ObservableCollection<EmailViewModel>), typeof (EmailFolderListing));
         public static readonly DependencyProperty SearchedExpressionProperty =
             DependencyProperty.Register("SearchedExpression", typeof (string), typeof (EmailFolderListing), new FrameworkPropertyMetadata(OnSearchedExpressionChanged));
+        public static readonly DependencyProperty SelectedEmailProperty =
+            DependencyProperty.Register("SelectedEmail", typeof(EmailViewModel), typeof(EmailFolderListing));
         
         public ObservableCollection<EmailViewModel> Emails
         {
@@ -28,6 +32,12 @@ namespace FitMailHiFi.Controls
         {
             get { return (string) GetValue(SearchedExpressionProperty); }
             set { SetValue(SearchedExpressionProperty, value); }
+        }
+
+        public EmailViewModel SelectedEmail
+        {
+            get { return (EmailViewModel) GetValue(SelectedEmailProperty); }
+            set { SetValue(SelectedEmailProperty, value); }
         }
 
         #endregion
@@ -56,6 +66,15 @@ namespace FitMailHiFi.Controls
         private static void OnSearchedExpressionChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             emailsView.Refresh();
+        }
+
+        private void MailDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+            {
+                e.Handled = true;
+                new EmailDetailsWindow { DataContext = SelectedEmail }.Show();
+            }
         }
     }
 }
