@@ -3,7 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:EveryDayTools.WPF.Converters;assembly=EveryDayTools"
         Title="Detail emailu" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    
+
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Gesture="Esc" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CloseWindow" />
+    </Window.CommandBindings>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition />

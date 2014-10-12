@@ -91,7 +91,7 @@ namespace FitMailHiFi.Controls
             var copyToAddresses = Copy.Text.Split(',').ToList();
             var blindCopyToAddresses = BlindCopy.Text.Split(',').ToList();
 
-            MessageBox.Show("Email byl odeslán.");
+            MessageBox.Show("Email byl odeslán.", "Informace", MessageBoxButton.OK, MessageBoxImage.Information);
             MainController.Instance.SendEmail(toAddresses, Subject.Text, Body.Text, copyToAddresses, blindCopyToAddresses);
             To.Clear();
             Copy.Clear();

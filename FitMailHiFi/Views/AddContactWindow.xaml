@@ -2,7 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Vytvořit nový kontakt" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Gesture="Esc" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CancelClicked" />
+    </Window.CommandBindings>
+
     <Grid Margin="10" FocusManager.FocusedElement="{Binding ElementName=EmailBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

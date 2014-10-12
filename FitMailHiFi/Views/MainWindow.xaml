@@ -8,6 +8,18 @@
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="New" />
+        <KeyBinding Key="Delete" Command="Delete" />
+        <KeyBinding Key="F1" Command="Help" />
+        <KeyBinding Key="S" Modifiers="Control" Command="Save" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="NewEmailShortcut" />
+        <CommandBinding Command="Delete" Executed="DeleteSelectedShortcut" />
+        <CommandBinding Command="Help" Executed="ShowHelpShortcut" />
+        <CommandBinding Command="Save" Executed="SaveAllContacts" />
+    </Window.CommandBindings>
     
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -32,29 +44,55 @@
                 <RowDefinition />
                 <RowDefinition Height="25" />
                 <RowDefinition />
+                <RowDefinition Height="180" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             
-            <Button Grid.Row="0" Content="Napsat email" Command="{Binding WriteNewEmail}" />
+            <Button Grid.Row="0" Content="Napsat email" Command="{Binding WriteNewEmail}" FontWeight="DemiBold" Background="LightBlue" 
+                    ToolTip="Stiskni Ctrl+N pro napsání nového emailu." />
             <Button Grid.Row="2" Content="Doručené" Command="{Binding ShowReceived}" Style="{StaticResource EmailFolderButton}" />
             <Button Grid.Row="3" Content="Odeslané" Command="{Binding ShowSent}" Style="{StaticResource EmailFolderButton}" />
             <Button Grid.Row="4" Content="Koš" Command="{Binding ShowTrash}" Style="{StaticResource EmailFolderButton}" />
             <Button Grid.Row="6" Content="Adresář" Command="{Binding ShowContacts}" />
+            <Button Grid.Row="8" Content="Nápověda" Command="{Binding ShowHelp}" />
         </Grid>
 
         <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource ContentPanel}" 
                     Visibility="{Binding IsEmailsListingActive, Converter={converters:BoolToVisibility}}">
-            <controls:EmailFolderListing Emails="{Binding ActiveFolderEmails}" />
-            <Button Content="Smazat označené" Command="{Binding DeleteSelectedEmails, Mode=OneTime}" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0"
-                    Visibility="{Binding IsDeleteAvailable, Converter={converters:BoolToVisibility}}" />
+
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="{Binding ActiveFolder}" FontSize="18" />
+                </GroupBox.Header>
+                <StackPanel Margin="5, 10, 5, 5">
+                    <controls:EmailFolderListing Emails="{Binding ActiveFolderEmails}" />
+                    <Button Content="Smazat označené" Command="{Binding DeleteSelectedEmails, Mode=OneTime}" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0"
+                            Visibility="{Binding IsDeleteAvailable, Converter={converters:BoolToVisibility}}" FontWeight="DemiBold"
+                            ToolTip="Stiskni Delete pro smazání označených emailů." />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource ContentPanel}" 
                     Visibility="{Binding AreContactsActive, Converter={converters:BoolToVisibility}}">
-            <controls:ContactList Contacts="{Binding Contacts}" />
-            <Button Content="Přidat kontakt" Command="{Binding AddContact, Mode=OneTime}" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0" />
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="Adresář" FontSize="18" />
+                </GroupBox.Header>
+                <StackPanel Margin="5, 10, 5, 5">
+                    <controls:ContactList Contacts="{Binding Contacts}" />
+                    <Button Content="Přidat kontakt" Command="{Binding AddContact, Mode=OneTime}" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0" FontWeight="DemiBold" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
 
-        <controls:NewEmail Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource ContentPanel}" 
-                           Visibility="{Binding IsNewEmailActive, Converter={converters:BoolToVisibility}}" />
+        <GroupBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource ContentPanel}" 
+                  Visibility="{Binding IsNewEmailActive, Converter={converters:BoolToVisibility}}">
+            <GroupBox.Header>
+                <TextBlock Text="Napsat nový email" FontSize="18" />
+            </GroupBox.Header>
+
+            <controls:NewEmail Margin="5, 10, 5, 5" />
+        </GroupBox>
     </Grid>
 </Window>

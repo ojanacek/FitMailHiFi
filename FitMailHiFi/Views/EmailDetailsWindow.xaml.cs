@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Input;
 using FitMailHiFi.Models;
 using FitMailHiFi.ViewModels;
 
@@ -15,7 +15,7 @@ namespace FitMailHiFi.Views
 
         private void DeleteEmailClick(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Opravdu chcete smazat tento email?", "Smazat email", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Opravdu chcete smazat tento email?", "Smazat email", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (result == MessageBoxResult.No)
                 return;
 
@@ -48,6 +48,11 @@ namespace FitMailHiFi.Views
                 Body = mailViewModel.Email.Body
             };
             MainController.Instance.RequestRespForw();
+            Close();
+        }
+
+        private void CloseWindow(object sender, ExecutedRoutedEventArgs e)
+        {
             Close();
         }
     }

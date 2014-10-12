@@ -1,0 +1,20 @@
+﻿<Window x:Class="FitMailHiFi.Views.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nápověda" Height="200" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="LightYellow">
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Gesture="Esc" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CloseWindow" />
+    </Window.CommandBindings>
+
+    <StackPanel Margin="10">
+        <TextBlock Text="Dostupné klávesové zkratky:" FontWeight="DemiBold" />
+        <TextBlock Text="Ctrl+N - vytvoří nový email" Margin="10, 3" />
+        <TextBlock Text="Delete - smaže označené kontakty" Margin="10, 0" />
+        <TextBlock Text="F1 - otevře tuto nápovědu" Margin="10, 3" />
+        <TextBlock Text="Esc - zavře otevřené dialogové okno a tím zruší probíhající operaci" Margin="10, 0" />
+        <TextBlock Text="Ctrl+S - uloží všechny editované kontakty v adresáři" Margin="10, 3" />
+    </StackPanel>
+</Window>

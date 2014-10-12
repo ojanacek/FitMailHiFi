@@ -73,7 +73,7 @@ namespace FitMailHiFi.ViewModels
 
         private void DeleteContact()
         {
-            var result = MessageBox.Show("Opravdu si přejete odstranit kontakt?", "Smazat kontakt", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Opravdu si přejete odstranit kontakt?", "Smazat kontakt", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (result == MessageBoxResult.Yes)
                 IsDeleted = true;
         }

@@ -1,4 +1,5 @@
-﻿using FitMailHiFi.ViewModels;
+﻿using System.Windows.Input;
+using FitMailHiFi.ViewModels;
 
 namespace FitMailHiFi.Views
 {
@@ -8,6 +9,11 @@ namespace FitMailHiFi.Views
         {
             InitializeComponent();
             DataContext = new AddContactViewModel(this);
+        }
+
+        private void CancelClicked(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -63,6 +63,7 @@ namespace FitMailHiFi.ViewModels
 
         public ICommand WriteNewEmail { get { return new RelayCommand(ChangeContentToNewEmail); } }
         public ICommand ShowContacts { get { return new RelayCommand(ChangeContentToContacts); } }
+        public ICommand ShowHelp { get { return new RelayCommand(OpenHelpWindow); } }
 
         public ICommand ShowReceived
         {
@@ -72,6 +73,7 @@ namespace FitMailHiFi.ViewModels
                 {
                     ChangeContentToEmailListing();
                     SwitchActiveEmails(controller.ReceivedEmails);
+                    ActiveFolder = "Doručené emaily";
                 });
             }
         }
@@ -84,6 +86,7 @@ namespace FitMailHiFi.ViewModels
                 {
                     ChangeContentToEmailListing();
                     SwitchActiveEmails(controller.SentEmails);
+                    ActiveFolder = "Odeslané emaily";
                 });
             }
         }
@@ -96,6 +99,7 @@ namespace FitMailHiFi.ViewModels
                 {
                     ChangeContentToEmailListing();
                     SwitchActiveEmails(controller.DeletedEmails);
+                    ActiveFolder = "Koš";
                 });
             }
         }
@@ -110,6 +114,13 @@ namespace FitMailHiFi.ViewModels
         {
             get { return isDeleteAvailable; }
             set { SetField(ref isDeleteAvailable, value); }
+        }
+
+        private string activeFolder;
+        public string ActiveFolder
+        {
+            get { return activeFolder; }
+            set { SetField(ref activeFolder, value); }
         }
 
         #endregion
@@ -134,7 +145,7 @@ namespace FitMailHiFi.ViewModels
 
         private void DeleteEmails()
         {
-            var result = MessageBox.Show("Opravdy si přejete smazat vybrané emaily?", "Potvrzení akce", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Opravdy si přejete smazat vybrané emaily?", "Potvrzení akce", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (result == MessageBoxResult.No)
                 return;
 
@@ -148,6 +159,11 @@ namespace FitMailHiFi.ViewModels
         private void AddNewContact()
         {
             new AddContactWindow().ShowDialog();
+        }
+
+        private void OpenHelpWindow()
+        {
+            new HelpWindow().Show();
         }
 
         private void ChangeContentToContacts()

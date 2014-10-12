@@ -4,6 +4,13 @@
         xmlns:viewModels="clr-namespace:FitMailHiFi.ViewModels"
         Title="Vybrat kontakty z adresáře" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Gesture="Esc" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CancelClicked" />
+    </Window.CommandBindings>
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -40,8 +47,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
-        <Button Grid.Row="2" Content="Potvrdit" HorizontalAlignment="Right" Margin="0, 0, 50, 0" Click="ConfirmClicked" />
-        <Button Grid.Row="2" Content="Zrušit" HorizontalAlignment="Right" Click="CancelClicked" />
+
+        <Button Grid.Row="2" Content="Zrušit" HorizontalAlignment="Right" Margin="0, 0, 60, 0" Click="CancelClicked" />
+        <Button Grid.Row="2" Content="Potvrdit" HorizontalAlignment="Right" FontWeight="DemiBold" Click="ConfirmClicked" />
     </Grid>
 </Window>

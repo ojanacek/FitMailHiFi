@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>email.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EveryDayTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,6 +64,9 @@
     <Compile Include="Views\EmailDetailsWindow.xaml.cs">
       <DependentUpon>EmailDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PickContactsWindow.xaml.cs">
       <DependentUpon>PickContactsWindow.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EmailDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,6 +160,8 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\search.png" />
+    <Resource Include="Images\question.png" />
+    <Resource Include="email.ico" />
     <Content Include="Libs\EveryDayTools.dll" />
     <Content Include="Libs\EveryDayTools.pdb" />
   </ItemGroup>

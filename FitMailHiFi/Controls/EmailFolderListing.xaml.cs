@@ -76,5 +76,13 @@ namespace FitMailHiFi.Controls
                 new EmailDetailsWindow { DataContext = SelectedEmail }.Show();
             }
         }
+
+        private void ToggleAllEmails(object sender, RoutedEventArgs e)
+        {
+            foreach (var email in Emails)
+            {
+                email.IsChecked = !email.IsChecked;
+            }
+        }
     }
 }
