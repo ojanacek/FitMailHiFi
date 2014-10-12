@@ -37,46 +37,52 @@
         <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource EmailDetailBox}" Text="{Binding Email.FromAddress}" />
         
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Příjemce" />
-        <ItemsControl Grid.Row="4" Grid.Column="2" ItemsSource="{Binding Email.ToAddresses}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" Margin="0, 0, 5, 0" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-
+        <Border Grid.Row="4" Grid.Column="2" BorderBrush="DarkGray" BorderThickness="1">
+            <ItemsControl ItemsSource="{Binding Email.ToAddresses}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="0, 0, 5, 0" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
+        
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Kopie" />
-        <ItemsControl Grid.Row="6" Grid.Column="2" ItemsSource="{Binding Email.CopyToAddresses}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" Margin="0, 0, 5, 0" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <Border Grid.Row="6" Grid.Column="2" BorderBrush="DarkGray" BorderThickness="1">
+            <ItemsControl ItemsSource="{Binding Email.CopyToAddresses}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="0, 0, 5, 0" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
 
         <TextBlock Grid.Row="8" Grid.Column="0" Text="Skrytá kopie" />
-        <ItemsControl Grid.Row="8" Grid.Column="2" ItemsSource="{Binding Email.BlindCopyToAddresses}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" Margin="0, 0, 5, 0" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <Border Grid.Row="8" Grid.Column="2" BorderBrush="DarkGray" BorderThickness="1">
+            <ItemsControl ItemsSource="{Binding Email.BlindCopyToAddresses}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="0, 0, 5, 0" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
 
         <TextBlock Grid.Row="10" Grid.Column="0" Text="Předmět" />
         <TextBox Grid.Row="10" Grid.Column="2" Style="{StaticResource EmailDetailBox}" Text="{Binding Email.Subject}" />

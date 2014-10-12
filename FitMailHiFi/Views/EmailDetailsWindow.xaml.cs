@@ -35,6 +35,7 @@ namespace FitMailHiFi.Views
                 Body = "\n\n" + new string('-', 15) + "\n" + mailViewModel.Email.Body
             };
             MainController.Instance.RequestRespForw();
+            Close();
         }
 
         private void ForwardClick(object sender, RoutedEventArgs e)
@@ -47,6 +48,7 @@ namespace FitMailHiFi.Views
                 Body = mailViewModel.Email.Body
             };
             MainController.Instance.RequestRespForw();
+            Close();
         }
     }
 }
