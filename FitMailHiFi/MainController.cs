@@ -49,6 +49,13 @@ namespace FitMailHiFi
             if (sentEmails.Contains(email))
                 sentEmails.Remove(email);
 
+            if (deletedEmails.Contains(email))
+            {
+                deletedEmails.Remove(email);
+                EmailDeleted(this, email);
+                return;
+            }
+
             deletedEmails.Add(email);
 
             EmailDeleted(this, email);

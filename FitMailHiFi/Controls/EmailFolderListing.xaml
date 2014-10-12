@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:EveryDayTools.WPF.Converters;assembly=EveryDayTools"
              MinHeight="200" MinWidth="200" x:Name="Local" Loaded="EmailFolderListing_OnLoaded">
-    <Grid>
+    <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -26,8 +27,30 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <ListBox Grid.Row="2" ItemsSource="{Binding Emails, ElementName=Local}" Grid.IsSharedSizeScope="True" 
-                 SelectedItem="{Binding SelectedEmail, ElementName=Local}" SelectionMode="Single" >
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="SubjectGroup" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition SharedSizeGroup="AddressGroup" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition SharedSizeGroup="DateGroup" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" Text="Předmět" />
+            <TextBlock Grid.Column="2" Text="Odesílatel" />
+            <TextBlock Grid.Column="4" Text="Datum" />
+            
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Emails.Count, ElementName=Local}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+        </Grid>
+        <ListBox Grid.Row="3" ItemsSource="{Binding Emails, ElementName=Local}" SelectedItem="{Binding SelectedEmail, ElementName=Local}" SelectionMode="Single" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid MouseDown="MailDoubleClick">

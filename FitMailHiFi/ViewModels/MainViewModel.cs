@@ -96,7 +96,6 @@ namespace FitMailHiFi.ViewModels
                 {
                     ChangeContentToEmailListing();
                     SwitchActiveEmails(controller.DeletedEmails);
-                    IsDeleteAvailable = false;
                 });
             }
         }

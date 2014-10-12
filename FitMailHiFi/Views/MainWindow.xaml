@@ -45,7 +45,7 @@
                     Visibility="{Binding IsEmailsListingActive, Converter={converters:BoolToVisibility}}">
             <controls:EmailFolderListing Emails="{Binding ActiveFolderEmails}" />
             <Button Content="Smazat označené" Command="{Binding DeleteSelectedEmails, Mode=OneTime}" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0"
-                    Visibility="{Binding IsDeleteAvailable, Converter={converters:BoolToVisibility}}"/>
+                    Visibility="{Binding IsDeleteAvailable, Converter={converters:BoolToVisibility}}" />
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource ContentPanel}" 

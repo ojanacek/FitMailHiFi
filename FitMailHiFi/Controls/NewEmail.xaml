@@ -44,7 +44,7 @@
         <TextBox Grid.Row="6" Grid.Column="2" x:Name="Subject" TabIndex="4" />
 
         <TextBlock Grid.Row="8" Grid.Column="0" Text="Obsah" />
-        <TextBox Grid.Row="8" Grid.Column="2" AcceptsReturn="True" TextWrapping="Wrap" Height="60" x:Name="Body" TabIndex="5" />
+        <TextBox Grid.Row="8" Grid.Column="2" AcceptsReturn="True" TextWrapping="Wrap" Height="280" x:Name="Body" TabIndex="5" VerticalScrollBarVisibility="Auto" />
         
         <Button Grid.Row="10" Grid.Column="2" Content="Odeslat" Click="SendEmail" TabIndex="6" />
     </Grid>
