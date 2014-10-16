@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using EveryDayTools;
@@ -16,11 +18,9 @@ namespace FitMailHiFi.Controls
         #region Dependency properties
 
         public static readonly DependencyProperty EmailsProperty =
-            DependencyProperty.Register("Emails", typeof (ObservableCollection<EmailViewModel>), typeof (EmailFolderListing));
+            DependencyProperty.Register("Emails", typeof(ObservableCollection<EmailViewModel>), typeof(EmailFolderListing));
         public static readonly DependencyProperty SearchedExpressionProperty =
             DependencyProperty.Register("SearchedExpression", typeof (string), typeof (EmailFolderListing), new FrameworkPropertyMetadata(OnSearchedExpressionChanged));
-        public static readonly DependencyProperty SelectedEmailProperty =
-            DependencyProperty.Register("SelectedEmail", typeof(EmailViewModel), typeof(EmailFolderListing));
         
         public ObservableCollection<EmailViewModel> Emails
         {
@@ -32,12 +32,6 @@ namespace FitMailHiFi.Controls
         {
             get { return (string) GetValue(SearchedExpressionProperty); }
             set { SetValue(SearchedExpressionProperty, value); }
-        }
-
-        public EmailViewModel SelectedEmail
-        {
-            get { return (EmailViewModel) GetValue(SelectedEmailProperty); }
-            set { SetValue(SelectedEmailProperty, value); }
         }
 
         #endregion
@@ -70,18 +64,34 @@ namespace FitMailHiFi.Controls
 
         private void MailDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
-            {
-                e.Handled = true;
-                new EmailDetailsWindow { DataContext = SelectedEmail }.Show();
-            }
+            e.Handled = true;
+            var list = sender as ListView;
+            new EmailDetailsWindow { DataContext = list.SelectedItems[0] }.Show();
         }
 
-        private void ToggleAllEmails(object sender, RoutedEventArgs e)
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            foreach (var email in Emails)
+            e.Handled = true;
+            DeleteEmails();
+        }
+
+        private void EmailsList_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+            if (e.Key == Key.Delete)
+                DeleteEmails();
+        }
+
+        private void DeleteEmails()
+        {
+            var result = MessageBox.Show("Opravdy si přejete smazat vybrané emaily?", "Potvrzení akce", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (result == MessageBoxResult.No)
+                return;
+
+            var selectedItems = EmailsList.SelectedItems.Cast<EmailViewModel>().ToList();
+            foreach (var mail in selectedItems)
             {
-                email.IsChecked = !email.IsChecked;
+                MainController.Instance.DeleteEmail(mail.Email);
             }
         }
     }

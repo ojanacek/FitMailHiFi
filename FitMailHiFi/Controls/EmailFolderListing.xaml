@@ -9,8 +9,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0" Text="{Binding SearchedExpression, ElementName=Local, UpdateSourceTrigger=PropertyChanged}" 
@@ -41,68 +41,18 @@
         <Image Grid.Row="0" Source="../Images/search.png" Width="16" Height="16" HorizontalAlignment="Left" 
                Margin="5, 0, 0, 0" RenderOptions.BitmapScalingMode="HighQuality" />
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition SharedSizeGroup="SubjectGroup" />
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition SharedSizeGroup="AddressGroup" />
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition SharedSizeGroup="DateGroup" />
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" Text="Předmět" />
-            <TextBlock Grid.Column="2" Text="Odesílatel" />
-            <TextBlock Grid.Column="4" Text="Datum" />
-            <CheckBox Grid.Column="6" Checked="ToggleAllEmails" Unchecked="ToggleAllEmails" />
-            
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Emails.Count, ElementName=Local}" Value="0">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-        </Grid>
-        <ListBox Grid.Row="3" ItemsSource="{Binding Emails, ElementName=Local}" SelectedItem="{Binding SelectedEmail, ElementName=Local}" SelectionMode="Single" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid MouseDown="MailDoubleClick">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="SubjectGroup" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition SharedSizeGroup="AddressGroup" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition SharedSizeGroup="DateGroup" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{Binding Email.Subject}" />
-                        <TextBlock Grid.Column="2" Text="{Binding Email.FromAddress}" />
-                        <TextBlock Grid.Column="4" Text="{converters:CultureAwareBinding Path=Email.Date}" />
-                        <CheckBox Grid.Column="6" IsChecked="{Binding IsChecked}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.Style>
-                <Style TargetType="ListBox">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <TextBlock Text="Složka je prázdná." Foreground="Gray" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.Style>
-        </ListBox>
+        <ListView Grid.Row="2" ItemsSource="{Binding Emails, ElementName=Local}" x:Name="EmailsList" MouseDoubleClick="MailDoubleClick" KeyDown="EmailsList_OnKeyDown">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Předmět" DisplayMemberBinding="{Binding Email.Subject}" />
+                    <GridViewColumn Header="Odesílatel" DisplayMemberBinding="{Binding Email.FromAddress}" />
+                    <GridViewColumn Header="Datum" DisplayMemberBinding="{converters:CultureAwareBinding Path=Email.Date}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Grid.Row="3" Content="Smazat označené" x:Name="DeleteButton" Click="DeleteButton_OnClick" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0" 
+                FontWeight="DemiBold" ToolTip="Stiskni Delete pro smazání označených emailů." />
     </Grid>
 </UserControl>

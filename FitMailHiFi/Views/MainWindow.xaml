@@ -10,13 +10,11 @@
     </Window.DataContext>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Control" Command="New" />
-        <KeyBinding Key="Delete" Command="Delete" />
         <KeyBinding Key="F1" Command="Help" />
         <KeyBinding Key="S" Modifiers="Control" Command="Save" />
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="NewEmailShortcut" />
-        <CommandBinding Command="Delete" Executed="DeleteSelectedShortcut" />
         <CommandBinding Command="Help" Executed="ShowHelpShortcut" />
         <CommandBinding Command="Save" Executed="SaveAllContacts" />
     </Window.CommandBindings>
@@ -64,12 +62,8 @@
                 <GroupBox.Header>
                     <TextBlock Text="{Binding ActiveFolder}" FontSize="18" />
                 </GroupBox.Header>
-                <StackPanel Margin="5, 10, 5, 5">
-                    <controls:EmailFolderListing Emails="{Binding ActiveFolderEmails}" />
-                    <Button Content="Smazat označené" Command="{Binding DeleteSelectedEmails, Mode=OneTime}" Width="120" HorizontalAlignment="Right" Margin="0, 10, 0, 0"
-                            Visibility="{Binding IsDeleteAvailable, Converter={converters:BoolToVisibility}}" FontWeight="DemiBold"
-                            ToolTip="Stiskni Delete pro smazání označených emailů." />
-                </StackPanel>
+
+                <controls:EmailFolderListing Emails="{Binding ActiveFolderEmails}" Margin="5, 10, 5, 5" />
             </GroupBox>
         </StackPanel>
 

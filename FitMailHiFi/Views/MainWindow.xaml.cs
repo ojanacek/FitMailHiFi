@@ -17,12 +17,6 @@ namespace FitMailHiFi.Views
             viewModel.WriteNewEmail.Execute(null);
         }
 
-        private void DeleteSelectedShortcut(object sender, ExecutedRoutedEventArgs e)
-        {
-            var viewModel = DataContext as MainViewModel;
-            viewModel.DeleteSelectedEmails.Execute(null);
-        }
-
         private void ShowHelpShortcut(object sender, ExecutedRoutedEventArgs e)
         {
             var viewModel = DataContext as MainViewModel;

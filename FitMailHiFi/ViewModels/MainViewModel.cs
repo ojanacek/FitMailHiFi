@@ -104,17 +104,9 @@ namespace FitMailHiFi.ViewModels
             }
         }
         
-        public ICommand DeleteSelectedEmails { get { return new RelayCommand(DeleteEmails); } }
         public ICommand AddContact { get { return new RelayCommand(AddNewContact); } }
 
         #endregion
-
-        private bool isDeleteAvailable;
-        public bool IsDeleteAvailable
-        {
-            get { return isDeleteAvailable; }
-            set { SetField(ref isDeleteAvailable, value); }
-        }
 
         private string activeFolder;
         public string ActiveFolder
@@ -141,19 +133,6 @@ namespace FitMailHiFi.ViewModels
 
             PopulateWithTestData();
             ShowReceived.Execute(null);
-        }
-
-        private void DeleteEmails()
-        {
-            var result = MessageBox.Show("Opravdy si přejete smazat vybrané emaily?", "Potvrzení akce", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-            if (result == MessageBoxResult.No)
-                return;
-
-            var mailsToDelete = ActiveFolderEmails.Where(e => e.IsChecked);
-            foreach (var mail in mailsToDelete.ToArray())
-            {
-                controller.DeleteEmail(mail.Email);
-            }
         }
 
         private void AddNewContact()
@@ -194,7 +173,6 @@ namespace FitMailHiFi.ViewModels
         {
             ActiveFolderEmails.Clear();
             ActiveFolderEmails.AddRange(emails.Select(e => new EmailViewModel(e)));
-            IsDeleteAvailable = ActiveFolderEmails.Count > 0;
         }
 
         private void PopulateWithTestData()
