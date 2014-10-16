@@ -21,7 +21,7 @@
         <ListBox Grid.Row="0" ItemsSource="{Binding Contacts}" Grid.IsSharedSizeScope="True">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:ContactViewModel}">
-                    <Grid>
+                    <Grid MouseDown="ContactMouseClick">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="NameGroup" />
                             <ColumnDefinition Width="10" />
